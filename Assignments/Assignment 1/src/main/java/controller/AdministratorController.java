@@ -1,5 +1,6 @@
 package controller;
 
+import model.dataTransferObject.UserDto;
 import model.validation.Notification;
 import services.report.GenerateReportsMySQL;
 import services.user.management.AdminManagerService;
@@ -33,9 +34,11 @@ public class AdministratorController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = administratorView.getUsername();
-            String password = administratorView.getPassword();
-            Notification<Boolean> registerNotification = adminManagerService.createEmployee(username, password);
+
+            UserDto user=administratorView.getUserDto();
+
+            Notification<Boolean> registerNotification = adminManagerService.createEmployee(user);
+
             if (registerNotification.hasErrors()) {
                 JOptionPane.showMessageDialog(administratorView.getContentPane(), registerNotification.getFormattedErrors());
             } else {
@@ -53,8 +56,8 @@ public class AdministratorController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = administratorView.getUsername();
-            Notification<Boolean> notification = adminManagerService.deleteEmployee(username);
+            UserDto user=administratorView.getUserDto();
+            Notification<Boolean> notification = adminManagerService.deleteEmployee(user.getUsername());
             if (!notification.hasErrors()) {
                 JOptionPane.showMessageDialog(administratorView.getContentPane(), "Employee deleted successful!");
             } else {
@@ -68,11 +71,9 @@ public class AdministratorController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = administratorView.getUsername();
-            String newUsername = administratorView.getNewUsername();
-            String newPassword = administratorView.getNewPassword();
-            Boolean changeRole = administratorView.getChangeRole();
-            Notification<Boolean> notification = adminManagerService.updateEmployee(username, newUsername, newPassword, changeRole);
+            UserDto oldUser=administratorView.getUserDto();
+            UserDto newUser=administratorView.getUpdateUserDto();
+            Notification<Boolean> notification = adminManagerService.updateEmployee(oldUser,newUser);
 
             if (!notification.hasErrors()) {
                 JOptionPane.showMessageDialog(administratorView.getContentPane(), "Employee updated successful!");
@@ -87,16 +88,7 @@ public class AdministratorController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame displayFrame = new JFrame("Employees");
-            displayFrame.setLocationRelativeTo(null);
-            displayFrame.setSize(500, 500);
-            displayFrame.setVisible(true);
-
-            JTextArea displayText = new JTextArea();
-            displayText.append(adminManagerService.getAllEmployees().toString());
-            displayText.setEditable(false);
-            displayFrame.add(displayText);
-
+             administratorView.displayList("Employees",adminManagerService.getAllEmployees().toString());
 
         }
     }

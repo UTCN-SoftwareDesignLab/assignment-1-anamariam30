@@ -2,6 +2,10 @@ package services.account;
 
 import model.Account;
 import model.Client;
+import model.dataTransferObject.AccountDto;
+import model.dataTransferObject.ClientDto;
+import model.dataTransferObject.PayBillDto;
+import model.dataTransferObject.TransferMoneyDto;
 import model.validation.Notification;
 
 import java.util.List;
@@ -24,4 +28,13 @@ public interface AccountService {
     Notification<Account> getAccountByIdNumber(String accountIdNumber);
 
 
+    Notification<Boolean> createAccount(ClientDto clientDto, AccountDto accountDto);
+
+    Notification<Boolean> updateAccount(AccountDto accountDto);
+
+    Notification<Boolean> deleteAccount(ClientDto clientDto, AccountDto accountDto);
+
+    Notification<Boolean> processBill(PayBillDto payBillDto);
+
+    Notification<Boolean> transferMoney(TransferMoneyDto transferMoneyDto);
 }

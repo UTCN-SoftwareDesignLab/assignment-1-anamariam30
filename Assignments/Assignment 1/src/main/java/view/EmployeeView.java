@@ -1,6 +1,10 @@
 package view;
 
 import model.User;
+import model.dataTransferObject.AccountDto;
+import model.dataTransferObject.ClientDto;
+import model.dataTransferObject.PayBillDto;
+import model.dataTransferObject.TransferMoneyDto;
 
 import javax.swing.*;
 import java.awt.*;
@@ -223,52 +227,52 @@ public class EmployeeView extends JFrame {
     }
 
 
-    public String getClientName() {
-        return tfClientName.getText();
+    public ClientDto getClientDto()
+    {
+        ClientDto clientDto=new ClientDto(tfClientName.getText(),
+                tfCardNumber.getText(),
+                tfPersonalNumericalCode.getText(),
+                tfAddress.getText());
+        return clientDto;
     }
 
-    public String getNewClientName() {
-        return tfNewClientName.getText();
+    public ClientDto getUpdateClientDto()
+    {
+        ClientDto clientDto=new ClientDto(tfNewClientName.getText(),
+                tfNewCardNumber.getText(),
+                tfNewAddress.getText());
+        return clientDto;
     }
 
-    public String getPNCode() {
-        return tfPersonalNumericalCode.getText();
+    public AccountDto getAccountDto()
+    {
+        AccountDto accountDto=new AccountDto(tfAccountIdNumber.getText(),tfAccountType.getText(),tfAmount.getText());
+        return accountDto;
     }
 
-    public String getCardNumber() {
-        return tfCardNumber.getText();
+
+    public PayBillDto getPayBillDto(){
+        PayBillDto payBillDto=new PayBillDto(tfAccountFrom.getText(),tfAmount.getText());
+        return payBillDto;
     }
 
-    public String getNewCardNumber() {
-        return tfNewCardNumber.getText();
+    public TransferMoneyDto  getTransferMoneyDto()
+    {
+        TransferMoneyDto transferMoneyDto=new TransferMoneyDto(tfAccountFrom.getText(),tfAccountTo.getText(),tfAmount.getText());
+        return transferMoneyDto;
     }
 
-    public String getAddress() {
-        return tfAddress.getText();
-    }
+    public void displayList(String title,String displayList ) {
+        JFrame displayFrame = new JFrame(title);
+        displayFrame.setLocationRelativeTo(null);
+        displayFrame.setSize(700, 600);
+        displayFrame.setVisible(true);
 
-    public String getNewAddress() {
-        return tfNewAddress.getText();
-    }
+        JTextArea displayText = new JTextArea();
+        displayText.append(displayList);
+        displayText.setEditable(false);
+        displayFrame.add(displayText);
 
-    public String getAccountFrom() {
-        return tfAccountFrom.getText();
-    }
-
-    public String getAccountTo() {
-        return tfAccountTo.getText();
-    }
-
-    public String getAmount() {
-        return tfAmount.getText();
-    }
-
-    public String getAccountType() {
-        return tfAccountType.getText();
-    }
-
-    public String getAccountId() {
-        return tfAccountIdNumber.getText();
     }
 
 

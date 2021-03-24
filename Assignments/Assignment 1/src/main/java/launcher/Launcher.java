@@ -5,7 +5,7 @@ import database.Bootstrapper;
 import java.sql.SQLException;
 
 public class Launcher {
-    private static final boolean BOOTSTRAP = true;
+    private static final boolean BOOTSTRAP = false;
 
     public static void main(String[] args) {
         boostrap();

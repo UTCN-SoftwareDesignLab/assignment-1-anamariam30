@@ -1,6 +1,7 @@
 package services.client;
 
 import model.Client;
+import model.dataTransferObject.ClientDto;
 import model.validation.Notification;
 
 import java.util.List;
@@ -16,5 +17,9 @@ public interface ClientService {
     Notification<Client> getClient(String clientName);
 
     List<Client> getAllClients();
+
+    Notification<Boolean> addClient(ClientDto clientDto);
+
+    Notification<Boolean> updateClient(ClientDto oldClient, ClientDto newClientDto);
 
 }

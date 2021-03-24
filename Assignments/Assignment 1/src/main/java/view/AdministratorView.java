@@ -1,5 +1,8 @@
 package view;
 
+import model.User;
+import model.dataTransferObject.UserDto;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -118,21 +121,12 @@ public class AdministratorView extends JFrame {
         this.btnBack.addActionListener(BackButtonListener);
     }
 
-
     public String getPassword() {
         return tfPassword.getText();
     }
 
     public String getUsername() {
         return tfUsername.getText();
-    }
-
-    public String getNewPassword() {
-        return tfNewPassword.getText();
-    }
-
-    public String getNewUsername() {
-        return tfNewUsername.getText();
     }
 
     public String getFrom() {
@@ -143,8 +137,30 @@ public class AdministratorView extends JFrame {
         return tfDataUntil.getText();
     }
 
-    public Boolean getChangeRole() {
-        return changeRole.isSelected();
+    public UserDto getUserDto()
+    {
+        UserDto user=new UserDto(tfUsername.getText(),tfPassword.getText());
+        return user;
+    }
+
+    public UserDto getUpdateUserDto()
+    {
+        UserDto user=new UserDto(tfNewUsername.getText(),tfNewPassword.getText(),changeRole.isSelected());
+        return user;
+
+    }
+
+    public void displayList(String title,String displayList ) {
+        JFrame displayFrame = new JFrame(title);
+        displayFrame.setLocationRelativeTo(null);
+        displayFrame.setSize(500, 500);
+        displayFrame.setVisible(true);
+
+        JTextArea displayText = new JTextArea();
+        displayText.append(displayList);
+        displayText.setEditable(false);
+        displayFrame.add(displayText);
+
     }
 
 

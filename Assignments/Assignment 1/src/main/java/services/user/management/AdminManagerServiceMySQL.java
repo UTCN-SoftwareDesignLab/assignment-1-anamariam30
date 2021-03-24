@@ -3,6 +3,7 @@ package services.user.management;
 import model.Role;
 import model.User;
 import model.builder.UserBuilder;
+import model.dataTransferObject.UserDto;
 import model.validation.Notification;
 import model.validation.UserValidation;
 import repository.security.RightsRolesRepository;
@@ -47,6 +48,12 @@ public class AdminManagerServiceMySQL implements AdminManagerService {
         }
         return notification;
 
+    }
+
+    @Override
+    public Notification<Boolean> createEmployee(UserDto user) {
+
+        return createEmployee(user.getUsername(), user.getPassword());
     }
 
     @Override
@@ -135,6 +142,13 @@ public class AdminManagerServiceMySQL implements AdminManagerService {
         }
 
         return employees;
+    }
+
+    @Override
+    public Notification<Boolean> updateEmployee(UserDto oldUser, UserDto newUser) {
+        return updateEmployee(oldUser.getUsername(), newUser.getUsername(),
+                newUser.getPassword(), newUser.getRole());
+
     }
 
     private boolean emptyFields(String field) {

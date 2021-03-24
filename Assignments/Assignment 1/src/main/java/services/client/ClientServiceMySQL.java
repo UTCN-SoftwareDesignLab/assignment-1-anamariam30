@@ -3,6 +3,7 @@ package services.client;
 import model.Client;
 import model.User;
 import model.builder.ClientBuilder;
+import model.dataTransferObject.ClientDto;
 import model.validation.ClientValidation;
 import model.validation.Notification;
 import repository.activity.ActivityRepository;
@@ -123,6 +124,21 @@ public class ClientServiceMySQL implements ClientService {
     @Override
     public List<Client> getAllClients() {
         return clientRepositoryMySQL.findAllClient();
+    }
+
+    @Override
+    public Notification<Boolean> addClient(ClientDto clientDto) {
+        return addClient(new ClientBuilder()
+                .setName(clientDto.getName())
+                .setCardNumber(clientDto.getCardNumber())
+                .setCNP(clientDto.getCNP())
+                .setAddress(clientDto.getAddress())
+                .build());
+    }
+
+    @Override
+    public Notification<Boolean> updateClient(ClientDto oldClient, ClientDto newClientDto) {
+        return updateClient(oldClient.getCNP(), newClientDto.getName(), newClientDto.getAddress(), newClientDto.getCardNumber());
     }
 
     private boolean emptyFields(String field) {
